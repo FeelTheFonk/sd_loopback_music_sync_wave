@@ -71,7 +71,9 @@ class AudioAnalyzer:
 	def CreateFig(self, wave_list):
 		import matplotlib.pyplot as plt
 
-		fig = plt.Figure(dpi=100, figsize=( (self.length/1000)*4 ,3*2))
+		max_fig_width = 100  # maximum width in inches, adjust as needed
+		fig_width = min((self.length/1000)*4, max_fig_width)
+		fig = plt.Figure(dpi=100, figsize=(fig_width, 3*2))
 		ax1 = fig.add_subplot(2, 1, 1)
 		ax1.plot(self.times, self.onset_env/self.onset_env.max(), label='onset envelope')
 
@@ -109,7 +111,9 @@ class AudioAnalyzer:
 
 		plt.rcParams["axes.prop_cycle"] = plt.cycler("color", plt.get_cmap("tab20").colors)
 
-		fig = plt.Figure(dpi=100, figsize=( (self.length/1000)*4 ,3*2))
+		max_fig_width = 100  # maximum width in inches, adjust as needed
+		fig_width = min((self.length/1000)*4, max_fig_width)
+		fig = plt.Figure(dpi=100, figsize=(fig_width, 3*2))
 		gs = gridspec.GridSpec(3, 1, figure=fig)
 		ax1 = fig.add_subplot(gs[0, :])
 #		ax1 = fig.add_subplot(2, 1, 1)
@@ -277,12 +281,3 @@ def audio_analyzer_process(audio_file:str, offset:int, band_min:int, band_max:in
 	fig = create_figure(None)
 
 	return bpm, length_msec, list_txt, fig, " "
-
-
-
-
-
-
-
-
-
